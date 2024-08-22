@@ -25,3 +25,11 @@ registry.addViewController("/cms/{path:^(?!static|api|static/.*\\.css|static/.*\
         registry.addResourceHandler("/cms/static/js/**").addResourceLocations("classpath:/static/js/");
         registry.addResourceHandler("/cms/static/images/**").addResourceLocations("classpath:/static/images/");
     }
+
+
+ registry.addViewController("/cms/{spring:[a-zA-Z0-9\\-_]+}")
+                .setViewName("forward:/static/cms/index.html");
+        registry.addViewController("/cms/**/{spring:[a-zA-Z0-9\\-_]+}")
+                .setViewName("forward:/static/cms/index.html");
+        registry.addViewController("/cms/{spring:[a-zA-Z0-9\\-_]+}/**{spring:[a-zA-Z0-9\\-_]+}")
+                .setViewName("forward:/static/cms/index.html");
