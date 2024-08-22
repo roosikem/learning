@@ -1,0 +1,17 @@
+@Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        // Forward requests starting with /cms to the static index.html
+        registry.addViewController("/cms/{spring:[a-zA-Z0-9\\-_]+}")
+                .setViewName("forward:/static/index.html");
+        registry.addViewController("/cms/**/{spring:[a-zA-Z0-9\\-_]+}")
+                .setViewName("forward:/static/index.html");
+        registry.addViewController("/cms/{spring:[a-zA-Z0-9\\-_]+}/**{spring:[a-zA-Z0-9\\-_]+}")
+                .setViewName("forward:/static/index.html");
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // Map static resources under the /cms path
+        registry.addResourceHandler("/cms/static/**")
+                .addResourceLocations("classpath:/static/");
+    }
