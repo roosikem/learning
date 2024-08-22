@@ -19,4 +19,9 @@ registry.addViewController("/cms/{path:^(?!static|api|static/.*\\.css|static/.*\
         // Map static resources under the /cms path
         registry.addResourceHandler("/cms/static/**")
                 .addResourceLocations("classpath:/static/");
+
+// Additionally handle any specific MIME types if needed
+        registry.addResourceHandler("/cms/static/css/**").addResourceLocations("classpath:/static/css/");
+        registry.addResourceHandler("/cms/static/js/**").addResourceLocations("classpath:/static/js/");
+        registry.addResourceHandler("/cms/static/images/**").addResourceLocations("classpath:/static/images/");
     }
