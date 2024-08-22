@@ -7,6 +7,8 @@
                 .setViewName("forward:/static/index.html");
         registry.addViewController("/cms/{spring:[a-zA-Z0-9\\-_]+}/**{spring:[a-zA-Z0-9\\-_]+}")
                 .setViewName("forward:/static/index.html");
+registry.addViewController("/cms/{path:^(?!static|api).*$}/**")
+                .setViewName("forward:/static/index.html");
     }
 
     @Override
