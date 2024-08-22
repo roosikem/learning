@@ -9,6 +9,9 @@
                 .setViewName("forward:/static/index.html");
 registry.addViewController("/cms/{path:^(?!static|api).*$}/**")
                 .setViewName("forward:/static/index.html");
+
+registry.addViewController("/cms/{path:^(?!static|api|static/.*\\.css|static/.*\\.js|static/.*\\.png|static/.*\\.jpg|static/.*\\.jpeg|static/.*\\.gif|static/.*\\.svg|static/.*\\.woff|static/.*\\.woff2|static/.*\\.ttf|static/.*\\.eot).*$}/**")
+                .setViewName("forward:/static/index.html");
     }
 
     @Override
