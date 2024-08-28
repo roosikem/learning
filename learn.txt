@@ -87,3 +87,9 @@ The problem occurs when we update an entity individually. If that entity is also
 Please let me know a convenient time for you.
 
 Thank you!
+
+Hi,
+
+Could we schedule a call to discuss an issue I’m facing with entity mapping, particularly with or without using @DBRef?
+
+The problem occurs when we update an entity individually. If that entity is also part of another entity, the updated details do not reflect when we fetch the other entity. Instead, we still see the old details of the updated entity. I think it would be useful to review this together.
