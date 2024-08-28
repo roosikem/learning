@@ -65,3 +65,15 @@ Configure Retry Mechanism:
 Implement a retry mechanism for the auth API, similar to the one used for the message API. This will ensure that the auth API can connect successfully on subsequent attempts if the initial request fails due to a proxy error.
 Investigate Network Stability:
 Conduct a thorough investigation to identify the root cause of the network disturbances. Understanding and resolving these network issues will be crucial in preventing similar proxy errors across all APIs.
+
+
+
+Hi,
+
+Could we schedule a call to discuss an issue I’m facing with entity mapping, specifically with or without using @DBRef?
+
+When I update a child entity individually, the changes are not reflected everywhere, and the system is still returning the old value. I believe it would be helpful to review this together.
+
+Please let me know a convenient time for you.
+
+Thank you!
