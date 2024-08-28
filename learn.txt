@@ -45,3 +45,23 @@ registry.addViewController("/cms/{path:^(?!static|_next|.*\\..*$).*$}/**")
         registry.addResourceHandler("/**")
                 .addResourceLocations("classpath:/public/");
     }
+
+
+Title: Proxy Error Causing Intermittent Failures in Auth and Message APIs
+
+Description:
+
+We have observed a Proxy Error impacting both the auth API and the message API. The issue is not isolated to the auth API; it affects both APIs due to network disturbances.
+
+Detailed Analysis:
+Auth API:
+The auth API is failing on the first hit due to the absence of a configured retry count. Since no retry mechanism is in place, the authentication process stops immediately upon encountering the error.
+Message API:
+The message API also experiences the same proxy-related error. However, it has a retry count configured. The retry mechanism triggers upon failure, leading to a successful response on subsequent attempts.
+Root Cause:
+The underlying cause appears to be related to network or proxy issues. The proxy error is affecting multiple APIs, not just the auth API. Other APIs are also experiencing impacts due to network disruptions at the same time.
+Recommendations:
+Configure Retry Mechanism:
+Implement a retry mechanism for the auth API, similar to the one used for the message API. This will ensure that the auth API can connect successfully on subsequent attempts if the initial request fails due to a proxy error.
+Investigate Network Stability:
+Conduct a thorough investigation to identify the root cause of the network disturbances. Understanding and resolving these network issues will be crucial in preventing similar proxy errors across all APIs.
