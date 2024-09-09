@@ -64,6 +64,8 @@ function getFileName(url) {
     return url.substring(url.lastIndexOf('/') + 1);
 }
 
+
+
 // Call the function
 const result = getUrlsWithContentTypes(urls);
 
