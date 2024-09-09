@@ -64,6 +64,35 @@ function getFileName(url) {
     return url.substring(url.lastIndexOf('/') + 1);
 }
 
+// Function to extract the original file name from a URL
+function getOriginalFileName(url) {
+    if (url == null || typeof url !== 'string') {
+        return 'invalid';  // Handle invalid URLs
+    }
+    const lastSlashIdx = url.lastIndexOf('/');
+    if (lastSlashIdx === -1) {
+        return 'invalid';  // Invalid URL structure
+    }
+    
+    return url.substring(lastSlashIdx + 1);  // Extract the original file name
+}
+
+// Function to generate a new file name with UUID while keeping the extension
+function alterFileName(originalFileName) {
+    const dotIdx = originalFileName.lastIndexOf('.');  // Find the position of the last dot
+    if (dotIdx === -1) {
+        return 'invalid';  // If no extension is found
+    }
+
+    const nameWithoutExtension = originalFileName.substring(0, dotIdx);  // File name without extension
+    const extension = originalFileName.substring(dotIdx);  // File extension (e.g., .jpg, .png)
+    
+    // Generate a new file name with UUID
+    const newFileName = `${nameWithoutExtension}_${uuidv4()}${extension}`;
+    
+    return newFileName;
+}
+
 
 
 // Call the function
