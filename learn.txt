@@ -1,3 +1,71 @@
+// Example list of URLs
+const urls = [
+  "https://example.com/file1.jpg",
+  "https://example.com/file2.png",
+  "https://example.com/file3.pdf",
+  "https://example.com/file4.gif",
+  "https://example.com/file5.mp3",
+  "https://example.com/file6.mp4",
+  "https://example.com/file7.wav",
+  "https://example.com/file8.zip"
+];
+
+// Mapping extensions to content types
+const mimeTypes = {
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.png': 'image/png',
+  '.gif': 'image/gif',
+  '.bmp': 'image/bmp',
+  '.webp': 'image/webp',
+  '.mp3': 'audio/mpeg',
+  '.wav': 'audio/wav',
+  '.ogg': 'audio/ogg',
+  '.flac': 'audio/flac',
+  '.aac': 'audio/aac',
+  '.mp4': 'video/mp4',
+  '.avi': 'video/x-msvideo',
+  '.mov': 'video/quicktime',
+  '.mkv': 'video/x-matroska',
+  '.flv': 'video/x-flv',
+  '.pdf': 'application/pdf',
+  '.doc': 'application/msword',
+  '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  '.xls': 'application/vnd.ms-excel',
+  '.xlsx': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  '.zip': 'application/zip',
+  '.rar': 'application/x-rar-compressed',
+  '.tar.gz': 'application/gzip'
+};
+
+// Function to find the MIME type based on the URL's extension
+function getContentType(url) {
+  const lowerCaseUrl = url.toLowerCase();
+  // Find the corresponding MIME type
+  for (let extension in mimeTypes) {
+    if (lowerCaseUrl.endsWith(extension)) {
+      return mimeTypes[extension];
+    }
+  }
+  return 'unknown'; // Return unknown if the extension is not found
+}
+
+// Function to return URLs with their content types
+function getUrlsWithContentTypes(urls) {
+  return urls.map(url => {
+    return {
+      url: url,
+      contentType: getContentType(url)
+    };
+  });
+}
+
+// Call the function
+const result = getUrlsWithContentTypes(urls);
+
+// Display the result
+console.log(result);
+
 @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         // Forward requests starting with /cms to the static index.html
