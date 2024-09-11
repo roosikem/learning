@@ -1,3 +1,28 @@
+Title: Add "Teams" field to User entity with an array of Team IDs
+
+Description:
+
+We need to update the existing User entity by adding a new field to store the association with teams. The new field will hold an array of Team IDs.
+
+Current Fields:
+
+name: User's full name
+organizationId: ID of the organization the user belongs to
+roleId: ID representing the role assigned to the user
+New Field to Add:
+
+teams: An array of Team IDs (e.g., teams: [teamId1, teamId2, teamId3])
+Acceptance Criteria:
+
+The teams field should be an array of integers or UUIDs, representing the Team IDs the user is part of.
+Ensure backward compatibility with existing users who do not yet have any teams.
+Update any relevant services, models, and database schemas to include this new field.
+Modify API endpoints where necessary to handle this new field for create, update, and fetch operations.
+Testing:
+
+Ensure that the teams field can be properly populated and retrieved via API.
+Validate that users without teams do not break any existing functionality.
+
 const generateFileName = (contentType) => {
   // Reverse the mimeTypes object to map content types to extensions
   const reversedMimeTypes = Object.entries(mimeTypes).reduce((acc, [ext, type]) => {
