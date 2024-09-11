@@ -1,3 +1,33 @@
+Description:
+
+The User entity already contains a teams field (array of Team IDs), but this field is not available for user creation through the UI or API. We need to expose the teams field in the UserDto and ensure it is available for user creation.
+
+Current Fields in User Creation:
+
+name: User's full name
+organizationId: ID of the organization the user belongs to
+roleId: ID representing the role assigned to the user
+teams: Already present in the entity but not available in UserDto for creation
+Changes Required:
+
+UserDto (Creation):
+Add the teams field (array of Team IDs) to UserDto so it can be used during the user creation process in the API.
+UI Changes:
+Modify the user creation UI to include a field for selecting one or more teams (an array of team IDs).
+Ensure users can select from a list of available teams during the creation process.
+Acceptance Criteria:
+
+The teams field is added to UserDto and is available for user creation via the API.
+The teams field is displayed in the user creation form in the UI, allowing users to select teams.
+Validate that the user creation process successfully associates the user with the selected teams.
+Ensure backward compatibility so that users can still be created without selecting teams (optional field).
+Testing:
+
+Verify that the teams field is correctly processed when a user is created via the API.
+Validate that the UI allows selecting teams and that the selected teams are correctly saved for the new user.
+Ensure users without any selected teams can still be created successfully.
+
+
 Title: Add "Teams" field to User entity with an array of Team IDs
 
 Description:
