@@ -1,3 +1,20 @@
+const generateFileName = (contentType) => {
+  // Reverse the mimeTypes object to map content types to extensions
+  const reversedMimeTypes = Object.entries(mimeTypes).reduce((acc, [ext, type]) => {
+    acc[type] = ext;
+    return acc;
+  }, {});
+
+  // Find the file extension based on the content type
+  const extension = reversedMimeTypes[contentType] || '.bin'; // Fallback to .bin if not found
+
+  // Generate a unique file name using a timestamp
+  const timestamp = Date.now();
+  const fileName = `file_${timestamp}${extension}`;
+
+  return fileName;
+};
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
