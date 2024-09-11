@@ -1,3 +1,36 @@
+Title: Generate and Display One-Time Password on Successful User Creation
+
+Description:
+
+When a user is created, a password should be automatically generated and displayed only once after successful user creation. The password will not be shown again, so users or admins need to ensure they save the credentials immediately.
+
+Requirements:
+
+Password Generation:
+Automatically generate a strong password during the user creation process.
+One-Time Display:
+After successful user creation, display the generated password on the screen, informing the user/admin that this is the only time it will be shown.
+Add a message to the UI prompting the user to save the password securely, as it will not be retrievable later.
+UI Changes:
+Modify the user creation success message to include the generated password.
+Add a clear instruction in the UI to ensure the password is saved immediately.
+No Password Storage for Viewing:
+Ensure that after the initial display, the password is not retrievable from the UI or API.
+The system should not provide any way to view the password again after the initial creation display.
+Acceptance Criteria:
+
+A strong password is generated automatically at the time of user creation.
+The generated password is displayed only once after successful creation and is not viewable again.
+A clear prompt is shown to save the password immediately.
+Ensure that if the password is not saved, the only way to access the account is through a password reset process.
+Testing:
+
+Verify that a strong password is generated during user creation.
+Validate that the password is displayed only once after successful user creation.
+Ensure that the password is not accessible after the initial display.
+Test scenarios where users forget to save the password and ensure they can reset it through the usual password recovery process.
+
+
 Description:
 
 The User entity already contains a teams field (array of Team IDs), but this field is not available for user creation through the UI or API. We need to expose the teams field in the UserDto and ensure it is available for user creation.
