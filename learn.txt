@@ -1,3 +1,10 @@
+I have completed the following implementations for the file upload functionality in the bridge:
+
+Added a check to determine if image upload is required, using data from the Secret Manager based on the provided appid.
+Added the apiKey for the specified appid in the Secret Manager.
+If the provided URL does not contain a file name, a file name is generated dynamically based on the contentType.
+Successfully implemented file upload functionality to AWS S3.
+
 Title: Generate and Display One-Time Password on Successful User Creation
 
 Description:
