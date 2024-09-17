@@ -353,4 +353,16 @@ function hasImageExtension(fileName) {
     return imageExtensions.some(extension => lowerCaseFileName.endsWith(extension));
 }
 
+"When we use DBRef in a MongoDB entity, there is a problem with entity mapping when there are two separate databases:
+
+Organization - is in database1
+Configuration Entity - is in database2
+When we try to map the Organization entity inside the Configuration Entity and then retrieve the Configuration from database1, the Organization entity returns as null.
+
+To resolve this problem, we can use:
+
+java
+Copy code
+@DBRef(db = "databaseName")
+This can be used during entity mapping."
 
