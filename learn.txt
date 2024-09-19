@@ -483,3 +483,9 @@ Update the request structure to include the attachment object in the message pay
 Ensure the chatbot processes file attachments correctly, alongside or independent of text messages.
 Handle cases where only one of the fields (text or attachments) is present, and adjust the request accordingly.
 Return an empty object when neither text nor attachments are available.
+
+
+
+As per the logs analyzed, after the session is stopped by Genesys due to a handover, the plugin is not sending any further messages to Genesys for session ID 3434534343434345.
+
+Please investigate the flow in the routing strategy to determine why Genesys is initiating the conversation again.
