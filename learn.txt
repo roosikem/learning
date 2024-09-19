@@ -460,4 +460,26 @@ static formatedMessage(data) {
     return formattedData;
 }
 
+Title: Sending File Attachment Object to Chatbot and Updating Existing Request Format
 
+Description:
+The current chatbot messaging system does not support sending file attachments alongside text messages. We need to extend the functionality of the formatedMessage method to include file attachment objects and modify the existing request format to handle attachments properly. This task involves adapting the method to ensure that attachments are sent along with the request when present, while maintaining backward compatibility with existing text message functionality.
+
+Acceptance Criteria:
+
+The formatedMessage method should be updated to handle both text and file attachments.
+The message payload sent to the chatbot should include:
+messageId: Identifier for the message.
+content: The text message in textPlain.
+attachments: The file attachment(s) if present.
+The request format should dynamically adapt based on the presence of attachments, ensuring the attachment object is correctly added to the request when provided.
+If neither text nor attachments are present, the method should return an empty object.
+Maintain backward compatibility with requests containing only text.
+Ensure correct attachment handling in the chatbot for different file types (e.g., PDFs, images).
+Technical Details:
+
+Modify the formatedMessage method to check for both text (txt) and attachments (attachments).
+Update the request structure to include the attachment object in the message payload if attachments exist.
+Ensure the chatbot processes file attachments correctly, alongside or independent of text messages.
+Handle cases where only one of the fields (text or attachments) is present, and adjust the request accordingly.
+Return an empty object when neither text nor attachments are available.
