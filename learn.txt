@@ -414,3 +414,50 @@ static formatedMessage(data) {
 }
 
 
+static formatedMessage(data) {
+    let formattedData = {};
+
+    // Check if neither txt nor attachments are available
+    if (!data.msg?.txt && !data.msg?.attachments) {
+        return {}; // Return an empty object when both are not available
+    }
+
+    // If txt is available, include it in the response
+    if (data.msg?.txt) {
+        formattedData["messages"] = {
+            "message": [
+                {
+                    "messageId": data.msg.id,
+                    "content": {
+                        "textMessage": {
+                            "textPlain": data.msg.txt
+                        }
+                    }
+                }
+            ]
+        };
+    }
+
+    // If attachments are available, include them in the response as well within the same message
+    if (data.msg?.attachments) {
+        if (formattedData["messages"]) {
+            // If messages already exist, add attachments to the same message block
+            formattedData["messages"]["message"][0]["attachments"] = data.msg.attachments;
+        } else {
+            // If messages don't exist yet, create them with only attachments
+            formattedData["messages"] = {
+                "message": [
+                    {
+                        "messageId": data.msg.id,
+                        "attachments": data.msg.attachments
+                    }
+                ]
+            };
+        }
+    }
+
+    // Return the formatted response
+    return formattedData;
+}
+
+
