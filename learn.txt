@@ -649,3 +649,94 @@ public class PermissionHelper {
 
 @PreAuthorize("@customPermissionEvaluator.hasAnyPermission(authentication, @permissionHelper.getEnvironmentPermissions())")
 
+package com.example.interceptor;
+
+import com.example.annotations.BypassTeamIdValidation;
+import com.example.security.RoleChecker;
+import com.example.service.OrganizationService;
+import com.example.service.TeamService;
+import com.example.exception.InvalidTenantIdException;
+import com.example.exception.InvalidTeamIdException;
+import com.example.security.RequestContext;
+import com.example.security.RequestInfo;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerInterceptor;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
+
+public class CustomInterceptor implements HandlerInterceptor {
+
+    private final RoleChecker roleChecker;
+    private final OrganizationService organizationService;
+    private final TeamService teamService;
+
+    public CustomInterceptor(RoleChecker roleChecker, OrganizationService organizationService, TeamService teamService) {
+        this.roleChecker = roleChecker;
+        this.organizationService = organizationService;
+        this.teamService = teamService;
+    }
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        // Check if the handler is a method handler (to ensure it is a request to a controller method)
+        if (!(handler instanceof HandlerMethod)) {
+            return HandlerInterceptor.super.preHandle(request, response, handler);
+        }
+
+        HandlerMethod handlerMethod = (HandlerMethod) handler;
+        // Check if the method has the @BypassTeamIdValidation annotation
+        boolean bypassTeamIdValidation = handlerMethod.hasMethodAnnotation(BypassTeamIdValidation.class);
+
+        String tenantId = request.getHeader("X-TenantId");
+        String teamId = request.getHeader("X-TeamId");
+
+        if (!bypassTeamIdValidation) {
+            // Perform standard validation if not bypassing teamId validation
+            if (!roleChecker.hasSuperAdminRole()) {
+                if (Objects.isNull(tenantId)) {
+                    throw new InvalidTenantIdException("tenantId is missing");
+                }
+                if (Objects.isNull(teamId)) {
+                    throw new InvalidTeamIdException("Team Id is missing");
+                }
+
+                // Validate tenant and team access
+                User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                if (!principal.getOrganization().getId().equalsIgnoreCase(tenantId)) {
+                    throw new InvalidTenantIdException("User is not authorized for this action.");
+                }
+
+                Optional<Organization> organization = organizationService.findOrganizationById(tenantId);
+                if (!organization.isPresent()) {
+                    throw new InvalidTenantIdException("invalid tenant id");
+                }
+
+                if (!roleChecker.hasUserTeamAccess(teamId)) {
+                    throw new InvalidTenantIdException("User is not authorized for this action.");
+                }
+
+                Optional<Team> team = teamService.findTeamById(teamId);
+                if (!team.isPresent()) {
+                    throw new InvalidTenantIdException("invalid team id");
+                }
+            }
+        } else {
+            // Bypass teamId validation for routes with @BypassTeamIdValidation
+            if (Objects.isNull(tenantId)) {
+                throw new InvalidTenantIdException("tenantId is missing");
+            }
+        }
+
+        // Set request information in the context
+        RequestInfo requestInfo = new RequestInfo(UUID.randomUUID().toString().replace("-", ""), teamId, tenantId);
+        RequestContext.setRequestContext(requestInfo);
+
+        return HandlerInterceptor.super.preHandle(request, response, handler);
+    }
+}
