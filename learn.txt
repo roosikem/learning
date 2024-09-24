@@ -613,3 +613,21 @@ public class CustomPermissionEvaluator {
         return true;
     }
 }
+
+import static com.yourpackage.PermissionsConstants.*; // Import the static permission constants
+
+import org.springframework.security.access.prepost.PreAuthorize;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Target(ElementType.METHOD) // Specifies that the annotation can be applied to methods
+@Retention(RetentionPolicy.RUNTIME) // Ensures that the annotation is available at runtime
+@PreAuthorize("@customPermissionEvaluator.hasAnyPermission(authentication, {"
+        + MANAGE_ENVIRONMENT + ", "
+        + CREATE_ENVIRONMENT + ", "
+        + VIEW_ENVIRONMENT + ", "
+        + DELETE_ENVIRONMENT + ", "
+        + EDIT_ENVIRONMENT + ", "
+        + ACCESS_REPORTS + "})") // Reference permissions from constants
