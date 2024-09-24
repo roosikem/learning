@@ -777,3 +777,9 @@ public class PermissionsConstants {
     }
 }
 
+const generateFileName = (data) => {
+    // Use ternary operator to decide the filename
+    const fileName = data.mediaId ? `${data.mediaId}_${Date.now()}` : `${Date.now()}`;
+    return fileName;
+};
+
