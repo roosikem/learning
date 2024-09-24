@@ -585,3 +585,31 @@ public class CustomPermissionEvaluator {
                 .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals(permission));
     }
 }
+
+@Target(ElementType.METHOD) // Specifies that the annotation can be applied to methods
+@Retention(RetentionPolicy.RUNTIME) // Ensures that the annotation is available at runtime
+@PreAuthorize("@customPermissionEvaluator.hasAllPermissions(authentication, {'MANAGE_ENVIRONMENT', 'CREATE_ENVIRONMENT', 'VIEW_ENVIRONMENT', 'DELETE_ENVIRONMENT', 'EDIT_ENVIRONMENT', 'ACCESS_REPORTS'})") // Check multiple permissions
+public @interface ManageMultiplePermissions {
+}
+
+@Component
+public class CustomPermissionEvaluator {
+
+    public boolean hasAllPermissions(Authentication authentication, String[] permissions) {
+        // Retrieve the user's authorities
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        // Iterate over the required permissions
+        for (String permission : permissions) {
+            boolean hasPermission = userDetails.getAuthorities().stream()
+                    .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals(permission));
+            
+            // If user lacks any required permission, deny access
+            if (!hasPermission) {
+                return false;
+            }
+        }
+        // User has all the required permissions
+        return true;
+    }
+}
