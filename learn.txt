@@ -631,3 +631,21 @@ import java.lang.annotation.Target;
         + DELETE_ENVIRONMENT + ", "
         + EDIT_ENVIRONMENT + ", "
         + ACCESS_REPORTS + "})") // Reference permissions from constants
+
+@Component
+public class PermissionHelper {
+
+    public String[] getEnvironmentPermissions() {
+        return new String[] {
+            PermissionsConstants.MANAGE_ENVIRONMENT,
+            PermissionsConstants.CREATE_ENVIRONMENT,
+            PermissionsConstants.VIEW_ENVIRONMENT,
+            PermissionsConstants.DELETE_ENVIRONMENT,
+            PermissionsConstants.EDIT_ENVIRONMENT,
+            PermissionsConstants.ACCESS_REPORTS
+        };
+    }
+}
+
+@PreAuthorize("@customPermissionEvaluator.hasAnyPermission(authentication, @permissionHelper.getEnvironmentPermissions())")
+
