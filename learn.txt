@@ -740,3 +740,40 @@ public class CustomInterceptor implements HandlerInterceptor {
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 }
+
+package com.example.constants;
+
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class PermissionsConstants {
+
+    // Define all your permissions as public static final fields
+    public static final String PERMISSION_1 = "PERMISSION_1";
+    public static final String PERMISSION_2 = "PERMISSION_2";
+    public static final String PERMISSION_3 = "PERMISSION_3";
+    public static final String PERMISSION_4 = "PERMISSION_4";
+    public static final String PERMISSION_5 = "PERMISSION_5";
+
+    // Dynamically create the list of permissions using reflection
+    public static List<String> getAllPermissions() {
+        List<String> permissions = new ArrayList<>();
+        Field[] fields = PermissionsConstants.class.getDeclaredFields(); // Get all fields of the class
+
+        for (Field field : fields) {
+            if (field.getType().equals(String.class)) {
+                try {
+                    // Add only public static final String fields to the permissions list
+                    permissions.add((String) field.get(null)); // Retrieve the value of the static field
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace(); // Handle exceptions (if any)
+                }
+            }
+        }
+
+        return permissions;
+    }
+}
+
