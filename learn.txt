@@ -554,3 +554,34 @@ Best regards,
 [Your Full Name]
 [Your Job Title]
 [Your Contact Information]
+
+
+import org.springframework.security.access.prepost.PreAuthorize;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Target(ElementType.METHOD) // Specifies that the annotation can be applied to methods
+@Retention(RetentionPolicy.RUNTIME) // Ensures that the annotation is available at runtime
+@PreAuthorize("@customPermissionEvaluator.hasPermission(authentication, 'MANAGE_ENVIRONMENT')") // Custom permission logic
+public @interface ManageEnvironmentPermission {
+}
+
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+
+@Component
+public class CustomPermissionEvaluator {
+
+    public boolean hasPermission(Authentication authentication, String permission) {
+        // Retrieve user authorities from the authentication object
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        
+        // Check if the user has the specified permission
+        return userDetails.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals(permission));
+    }
+}
