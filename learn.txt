@@ -793,3 +793,63 @@ Best regards,
 [Your Job Title]
 [Your Contact Information]
 This email is concise and clearly outlines the tool's security advantages while requesting formal approval.
+
+{
+    "family": "springboot-mongodb-task",
+    "networkMode": "awsvpc",
+    "containerDefinitions": [
+        {
+            "name": "mongodb",
+            "image": "mongo:latest",
+            "memory": 512,
+            "cpu": 256,
+            "portMappings": [
+                {
+                    "containerPort": 27017,
+                    "protocol": "tcp"
+                }
+            ],
+            "environment": [
+                {
+                    "name": "MONGO_INITDB_ROOT_USERNAME",
+                    "value": "root"
+                },
+                {
+                    "name": "MONGO_INITDB_ROOT_PASSWORD",
+                    "value": "example"
+                }
+            ]
+        },
+        {
+            "name": "springboot-app",
+            "image": "your-springboot-app-image",
+            "memory": 512,
+            "cpu": 256,
+            "portMappings": [
+                {
+                    "containerPort": 8080,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "environment": [
+                {
+                    "name": "SPRING_DATA_MONGODB_URI",
+                    "value": "mongodb://root:example@mongodb:27017/testdb"
+                }
+            ]
+        }
+    ],
+    "requiresCompatibilities": ["FARGATE"],
+    "cpu": "512",
+    "memory": "1024",
+    "networkConfiguration": {
+        "awsvpcConfiguration": {
+            "subnets": [
+                "subnet-0123456789abcdef"  // Update with your actual subnet ID
+            ],
+            "assignPublicIp": "ENABLED"
+        }
+    }
+}
+
