@@ -853,3 +853,139 @@ This email is concise and clearly outlines the tool's security advantages while 
     }
 }
 
+import sinon from 'sinon';
+import { expect } from 'chai';
+import https from 'https';
+import { downloadFileAsStream } from './path/to/your/module';
+import LocalLogger from './LocalLogger';
+
+describe('downloadFileAsStream', () => {
+  let httpsGetStub;
+  let localLoggerStub;
+  
+  beforeEach(() => {
+    // Stub https.get and LocalLogger.log
+    httpsGetStub = sinon.stub(https, 'get');
+    localLoggerStub = sinon.stub(LocalLogger, 'log');
+  });
+
+  afterEach(() => {
+    // Restore stubs after each test
+    sinon.restore();
+  });
+
+  it('should reject if no apiKey is provided', (done) => {
+    const data = {
+      config: {} // No apiKey
+    };
+    
+    httpsGetStub.callsFake((url, options, callback) => {
+      callback({
+        statusCode: 200,
+        headers: {
+          'content-length': '1000',
+          'content-type': 'application/octet-stream'
+        }
+      });
+    });
+
+    downloadFileAsStream(data).catch((err) => {
+      expect(err.message).to.equal('Failed to download file: undefined');
+      done();
+    });
+  });
+
+  it('should resolve when file is downloaded successfully', (done) => {
+    const data = {
+      config: {
+        apiKey: '12345'
+      },
+      url: 'https://example.com/file'
+    };
+
+    const fakeResponse = {
+      statusCode: 200,
+      headers: {
+        'content-length': '1000',
+        'content-type': 'application/octet-stream'
+      },
+      on: sinon.stub() // Stub 'on' method to simulate a stream
+    };
+
+    httpsGetStub.callsFake((url, options, callback) => {
+      callback(fakeResponse);
+    });
+
+    downloadFileAsStream(data).then((response) => {
+      expect(response).to.equal(fakeResponse);
+      done();
+    }).catch(done);
+  });
+
+  it('should reject if the response status code is not 200', (done) => {
+    const data = {
+      config: {
+        apiKey: '12345'
+      },
+      url: 'https://example.com/file'
+    };
+
+    const fakeResponse = {
+      statusCode: 404,
+      headers: {},
+      on: sinon.stub() // Stub 'on' method
+    };
+
+    httpsGetStub.callsFake((url, options, callback) => {
+      callback(fakeResponse);
+    });
+
+    downloadFileAsStream(data).catch((err) => {
+      expect(err.message).to.equal('Failed to download file: 404');
+      done();
+    });
+  });
+
+  it('should reject on request timeout', (done) => {
+    const data = {
+      config: {
+        apiKey: '12345'
+      },
+      url: 'https://example.com/file'
+    };
+
+    const fakeRequest = {
+      abort: sinon.stub(),
+      on: sinon.stub().yields(new Error('Request timed out')) // Simulate timeout
+    };
+
+    httpsGetStub.returns(fakeRequest);
+
+    downloadFileAsStream(data).catch((err) => {
+      expect(err.message).to.equal('Request timed out');
+      done();
+    });
+  });
+
+  it('should reject on request error', (done) => {
+    const data = {
+      config: {
+        apiKey: '12345'
+      },
+      url: 'https://example.com/file'
+    };
+
+    const fakeRequest = {
+      on: sinon.stub().yields(new Error('Request failed'))
+    };
+
+    httpsGetStub.returns(fakeRequest);
+
+    downloadFileAsStream(data).catch((err) => {
+      expect(err.message).to.equal('Request failed');
+      done();
+    });
+  });
+});
+
+
