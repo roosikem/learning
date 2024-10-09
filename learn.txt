@@ -1000,3 +1000,17 @@ Data creation logic is implemented to check if the above entities exist and only
 The application should start without errors, and the necessary data should be available if missing.
 Impact: This will clean up the startup process and ensure that the necessary data is created only when it is needed, improving the stability and flexibility of the system.
 
+Subject: Reminder: GitHub Review and Approval Process
+Hi [Team/Recipient Name],
+I wanted to remind everyone about our GitHub review and approval process. To ensure code quality and consistency, please follow these steps when submitting a pull request (PR):
+Submit PR on GitHub: Once your changes are ready, submit your pull request for review.
+Review Process: At least one team member must review the PR. Please ensure you request reviews from appropriate team members.
+Approval Requirement: A minimum of one approval is required before merging the pull request. Larger changes may require multiple approvals, depending on their complexity.
+Feedback and Updates: If any feedback is provided during the review, make the necessary updates and notify the reviewers for a follow-up review.
+This process helps maintain code quality, consistency, and smooth collaboration across the team.
+Thank you for following the process. If you have any questions or need further clarification, feel free to reach out.
+Best regards,
+[Your Name]
+[Your Position]
+[Your Contact Information]
+
