@@ -988,4 +988,15 @@ describe('downloadFileAsStream', () => {
   });
 });
 
+Title: Remove Dummy Data Creation from Application Startup and Implement Conditional Data Creation
+Description: The current application creates dummy data upon startup, which is no longer required. The task involves removing this dummy data creation and replacing it with conditional logic to create the following data only if it is not found in the database:
+Roles: Check if the required roles exist. If they do not, create them.
+Organization: Ensure that one organization exists. If none is found, create a default organization.
+Team: Ensure that at least one team exists. If no team is found, create a default team.
+Super Admin User: Verify that a super admin user exists. If not, create a default super admin user.
+Acceptance Criteria:
+The application no longer creates dummy data on startup.
+Data creation logic is implemented to check if the above entities exist and only create them if they are not found in the database.
+The application should start without errors, and the necessary data should be available if missing.
+Impact: This will clean up the startup process and ensure that the necessary data is created only when it is needed, improving the stability and flexibility of the system.
 
