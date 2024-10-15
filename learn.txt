@@ -1084,3 +1084,73 @@ Expected Result: The system should display an error message like "Organization n
 Testing Artifacts:
 Preconditions: User must be logged in with the necessary permissions to create, edit, and view organizations.
 Postconditions: After testing, the system should have accurate organization data reflecting the test operations.
+
+
+
+
+Jira Ticket: User Management (Create, Edit, View, and List)
+Test Scenarios:
+Create User
+Password Handling
+Edit User (without showing the password)
+View User Details
+List All Users
+1. Create User
+Objective: Ensure that a user can be successfully created by providing valid details (username, role, organization, team) and receiving a password.
+Test Steps:
+Navigate to the "Users" section.
+Click on "Create User."
+Fill in the required fields (Username, Role, Organization, Team).
+Submit the form.
+Expected Result:
+The system should successfully create the user and display a success message (e.g., "User created successfully").
+A password should be generated for the user and displayed on the screen for the first time.
+The user should receive the password through an appropriate channel (e.g., email, secure message).
+Edge Cases:
+Attempt to create a user with an empty username.
+Expected Result: The system should display an error message, such as "Username is required."
+2. Password Handling
+Objective: Ensure that the password is securely generated and displayed only once after the user is created. The password should not be shown again in any subsequent operations (edit or view).
+Test Steps:
+After creating the user, the system should generate and display the password only once.
+Ensure the password is stored securely in the backend (e.g., hashed).
+Expected Result:
+The password should be shown only on the creation page and not stored in plain text.
+If the user forgets the password, they should go through the "Forgot Password" flow rather than viewing it on the edit or view pages.
+Security Consideration:
+The password should never be displayed in plain text after the creation process.
+3. Edit User (without showing the password)
+Objective: Ensure that the user can edit their details (e.g., username, role, organization, team) without displaying or editing the password field.
+Test Steps:
+Navigate to the "Users" section.
+Select an existing user and click on "Edit User."
+Edit the fields such as Username, Role, Organization, and Team.
+Submit the form.
+Expected Result:
+The user details should be updated successfully without showing the password field.
+The system should not display the password in any form during the edit process.
+Edge Cases:
+Attempt to edit a user and provide invalid data (e.g., empty username).
+Expected Result: The system should display an error message, such as "Username cannot be empty."
+4. View User Details
+Objective: Ensure that the user details can be viewed but without displaying the password.
+Test Steps:
+Navigate to the "Users" section.
+Select a user and click on "View User."
+Expected Result:
+The system should display the user details (Username, Role, Organization, Team) but should not show the password in the user view screen.
+Edge Cases:
+If the user does not exist, the system should display an appropriate message (e.g., "User not found").
+5. List All Users
+Objective: Ensure that all users can be listed and displayed correctly.
+Test Steps:
+Navigate to the "Users" section.
+Ensure that a list of all users is displayed in a table or grid format.
+Expected Result:
+The system should display all users with their details (Username, Role, Organization, Team) in the list view.
+Passwords should not be displayed in the list view.
+Edge Cases:
+If no users exist, the system should display a message like "No users found."
+Testing Artifacts:
+Preconditions: User must be logged in with the necessary permissions to create, edit, view, and list users.
+Postconditions: The system should have accurate user data after testing, including securely handled passwords.
