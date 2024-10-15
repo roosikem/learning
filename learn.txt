@@ -1024,3 +1024,63 @@ Thank you for your understanding and support.
 Best regards,
 [Your Name]
 
+
+Jira Ticket: Organization Tab Testing
+Summary:
+Testing the functionality of the Organization Tab, including creating organizations, validating unique organization names, fetching all organizations, and editing existing organizations.
+Test Scenarios:
+Create Organization with Name and Country
+Name Validation (Organization already exists)
+Fetch All Organizations
+Edit Existing Organization
+1. Create Organization with Name and Country
+Objective: Ensure that an organization can be created successfully by providing a valid name and country.
+Test Steps:
+Navigate to the "Organization" tab.
+Click on "Create Organization."
+Input a valid name (e.g., "ABC Corp") and select a country (e.g., "United States").
+Submit the form.
+Expected Result:
+The organization should be successfully created and displayed in the list.
+The system should show a success message confirming the organization creation (e.g., "Organization ABC Corp created successfully").
+Edge Cases:
+Attempt to create an organization with an empty name or country.
+Expected Result: The system should display an error message, such as "Name and Country are required fields."
+2. Name Validation (Organization Already Exists)
+Objective: Ensure that creating an organization with an already existing name is blocked by validation.
+Test Steps:
+Navigate to the "Organization" tab.
+Attempt to create an organization with a name that already exists (e.g., "ABC Corp").
+Input the same country or a different one.
+Expected Result:
+The system should display a validation error like "Organization name already exists."
+The user should be unable to create the organization until a unique name is provided.
+3. Fetch All Organizations
+Objective: Verify that all existing organizations can be retrieved and displayed correctly.
+Test Steps:
+Navigate to the "Organization" tab.
+Click on "Fetch All Organizations" or ensure the organization list is displayed upon page load.
+Expected Result:
+The system should display a list of all organizations in a table or grid format.
+Each organization should display key details like Name, Country, and Date Created.
+Edge Cases:
+If no organizations exist:
+Expected Result: The system should display a message like "No organizations found."
+4. Edit Existing Organization
+Objective: Ensure that an existing organization can be edited successfully.
+Test Steps:
+Navigate to the "Organization" tab.
+Select an organization from the list (e.g., "ABC Corp").
+Click on "Edit Organization."
+Update the name (e.g., from "ABC Corp" to "ABC Corporation") or change the country.
+Submit the form.
+Expected Result:
+The system should update the organization details successfully.
+A confirmation message should appear, such as "Organization updated successfully."
+The updated organization should be reflected in the organization list.
+Edge Cases:
+Attempt to change the name to an existing organization name.
+Expected Result: The system should display an error message like "Organization name already exists."
+Testing Artifacts:
+Preconditions: User must be logged in with the necessary permissions to create, edit, and view organizations.
+Postconditions: After testing, the system should have accurate organization data reflecting the test operations.
