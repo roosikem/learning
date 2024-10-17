@@ -1175,3 +1175,17 @@ Attachments: (Add any relevant screenshots or documents)
 Due Date: [Specify if any deadline]
 Additional Comments:
 Please ensure testing is done thoroughly to avoid any unintentional account lockouts or permission issues.
+
+
+Project: [Your Project Name]
+Issue Type: Task / Improvement / Bug (choose the most appropriate)
+Summary: Restrict Users from Deleting Their Own Organization
+Description:
+Currently, users with the necessary permissions to delete organizations are able to delete their own organization, which could lead to serious issues such as unintended service disruptions or data loss.
+The system should be updated to prevent users from deleting the organization they belong to.
+Acceptance Criteria:
+Users with organization deletion permissions should not be able to delete the organization they are part of.
+If a user attempts to delete their own organization, an appropriate error or warning message should be displayed.
+Deletion functionality for other organizations (that the user is authorized to delete) should remain unaffected.
+Logs must be maintained for any attempted self-organization deletion for auditing purposes.
+
