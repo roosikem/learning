@@ -1154,3 +1154,24 @@ If no users exist, the system should display a message like "No users found."
 Testing Artifacts:
 Preconditions: User must be logged in with the necessary permissions to create, edit, view, and list users.
 Postconditions: The system should have accurate user data after testing, including securely handled passwords.
+
+
+
+Project: [Your Project Name]
+Issue Type: Task / Bug / Improvement (choose the most appropriate)
+Summary: Restrict Users from Deleting Their Own Account
+Description:
+Currently, users with access to the "User Deletion" functionality are able to delete any account, including their own. This behavior can lead to unintended data loss or access issues.
+The system should be updated to restrict users from deleting their own accounts if they have the necessary permissions for account deletion.
+Acceptance Criteria:
+Users with access to the "User Deletion" feature should not be able to delete their own account.
+An appropriate warning or error message should be displayed if a user attempts to delete their own account.
+User deletion functionality for other users remains unaffected.
+Proper logs should be maintained for any attempted self-deletion action.
+Priority: High
+Assignee: [Assigned Developer/Team]
+Labels: Security, UserManagement
+Attachments: (Add any relevant screenshots or documents)
+Due Date: [Specify if any deadline]
+Additional Comments:
+Please ensure testing is done thoroughly to avoid any unintentional account lockouts or permission issues.
