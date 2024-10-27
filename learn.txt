@@ -1347,6 +1347,60 @@ public class PermissionService {
 
 ------
 
+public class PermissionDto {
+
+    private String id;
+    private String name;
+
+    public PermissionDto() {}
+
+    public PermissionDto(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+
+-------
+
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
+
+@Component
+public class PermissionMapper {
+
+    private final ModelMapper modelMapper;
+
+    public PermissionMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
+
+    public PermissionDto toDto(Permission permission) {
+        return modelMapper.map(permission, PermissionDto.class);
+    }
+
+    public Permission toEntity(PermissionDto permissionDto) {
+        return modelMapper.map(permissionDto, Permission.class);
+    }
+}
+
+-----
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -1354,6 +1408,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/permissions")
@@ -1361,22 +1416,29 @@ import java.util.Optional;
 public class PermissionController {
 
     private final PermissionService permissionService;
+    private final PermissionMapper permissionMapper;
 
-    public PermissionController(PermissionService permissionService) {
+    public PermissionController(PermissionService permissionService, PermissionMapper permissionMapper) {
         this.permissionService = permissionService;
+        this.permissionMapper = permissionMapper;
     }
 
     @PostMapping
-    public ResponseEntity<Permission> createPermission(@RequestBody @Validated Permission permission) {
+    public ResponseEntity<PermissionDto> createPermission(@RequestBody @Validated PermissionDto permissionDto) {
+        Permission permission = permissionMapper.toEntity(permissionDto);
         Permission createdPermission = permissionService.createPermission(permission);
-        return new ResponseEntity<>(createdPermission, HttpStatus.CREATED);
+        PermissionDto createdPermissionDto = permissionMapper.toDto(createdPermission);
+        return new ResponseEntity<>(createdPermissionDto, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Permission> updatePermission(@PathVariable String id,
-                                                       @RequestBody @Validated Permission permission) {
+    public ResponseEntity<PermissionDto> updatePermission(
+            @PathVariable String id, 
+            @RequestBody @Validated PermissionDto permissionDto) {
+        Permission permission = permissionMapper.toEntity(permissionDto);
         Permission updatedPermission = permissionService.updatePermission(id, permission);
-        return ResponseEntity.ok(updatedPermission);
+        PermissionDto updatedPermissionDto = permissionMapper.toDto(updatedPermission);
+        return ResponseEntity.ok(updatedPermissionDto);
     }
 
     @DeleteMapping("/{id}")
@@ -1386,21 +1448,26 @@ public class PermissionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Permission>> listPermissions() {
+    public ResponseEntity<List<PermissionDto>> listPermissions() {
         List<Permission> permissions = permissionService.listPermissions();
-        return ResponseEntity.ok(permissions);
+        List<PermissionDto> permissionDtos = permissions.stream()
+                .map(permissionMapper::toDto)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(permissionDtos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Permission> getPermissionById(@PathVariable String id) {
+    public ResponseEntity<PermissionDto> getPermissionById(@PathVariable String id) {
         Optional<Permission> permission = permissionService.findById(id);
-        return permission.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return permission.map(p -> ResponseEntity.ok(permissionMapper.toDto(p)))
+                         .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/name/{name}")
-    public ResponseEntity<Permission> getPermissionByName(@PathVariable String name) {
+    public ResponseEntity<PermissionDto> getPermissionByName(@PathVariable String name) {
         Optional<Permission> permission = permissionService.findByName(name);
-        return permission.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return permission.map(p -> ResponseEntity.ok(permissionMapper.toDto(p)))
+                         .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
 
