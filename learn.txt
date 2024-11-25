@@ -1473,6 +1473,9 @@ public class PermissionController {
 
 -------
 
+The issue is occurring due to a socket timeout error. The configured timeout is set to 30 seconds, and the retry count is already configured to 2. In this case, the plugin sends the request again after 30 seconds. When the plugin receives a response, it sends it back to the Genesis server.
+
+Additionally, it is observed that Genesis cancels the request, but the plugin receives the stop request after 2 minutes. Before this 2-minute period, the plugin had already sent the response back to Genesis because it had not yet received the stop request. Since the session was still active during this time, the plugin was able to send the response to the Genesis server, as the session was considered alive at that moment.
 
 
 
