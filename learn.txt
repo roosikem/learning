@@ -1578,3 +1578,7 @@ Proactively resolving Genesys plugin issues, ensuring stable integration and imp
 ✅ Verification Checklist:
 Are improvements measurable and actionable? Yes, by introducing monitoring tools, security audits, and structured release cycles.
 Does it align with long-term success? Yes, by focusing on security, automation, and collaboration.
+
+
+The instructed exception in logs occurs because the Genesis server triggers a session close request, calling the onCommandStop() method in the plug-in for each conversation. This method closes resources associated with that specific conversation and stops the corresponding thread.
+Since stopping a thread forcefully always throws an exception, this is expected behavior. The system is functioning as designed, and there is no issue here.
