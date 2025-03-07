@@ -1581,4 +1581,13 @@ Does it align with long-term success? Yes, by focusing on security, automation, 
 
 
 The instructed exception in logs occurs because the Genesis server triggers a session close request, calling the onCommandStop() method in the plug-in for each conversation. This method closes resources associated with that specific conversation and stops the corresponding thread.
+
+
 Since stopping a thread forcefully always throws an exception, this is expected behavior. The system is functioning as designed, and there is no issue here.
+
+Issue Analysis:
+We observed that the actual processing time between the two timestamps is 542 milliseconds (0.542 seconds). However, the application is introducing an additional 1000-millisecond pause before sending the response. As a result, the total response time becomes 1542 milliseconds (542 ms + 1000 ms) instead of just the actual processing duration.
+Impact:
+This additional delay may be causing unnecessary latency in the system, affecting overall performance.
+Suggested Action:
+We need to investigate the reason behind this 1000-millisecond wait time and determine whether it is an intentional delay or an unintended bottleneck. If it's unnecessary, optimizing this delay could help improve response times significantly.
