@@ -1639,3 +1639,11 @@ I appreciate the support and guidance from you and the team throughout this jour
 Best regards,
 [Your Name]
 
+Corrected Version:
+
+The onCommandStop operation and the thread sending a message to Genesis are happening almost simultaneously. Due to this, the logic prevents the thread from sending another message to close the session, which is why an exception is being logged.
+
+This issue is more likely to occur in a production-like environment, where user capacity is high, and users may not be interested in the response.
+
+You can also replicate the same issue in the test environment by simulating the same scenario.
+
