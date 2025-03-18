@@ -1679,4 +1679,37 @@ Acceptance Criteria:
 
 
 Let me know if you need any modifications! 🚀
+Jira Ticket Description
+
+Title: Implement Disconnect API for Closing Conversations in Genesys
+
+Description:
+We need to implement the Genesys Disconnect API to ensure that a conversation is properly closed when it ends. This will be achieved by sending an event type "closed session" via WebSocket, instructing the bridge to trigger the Disconnect API for terminating the conversation.
+
+Once the "closed session" event response is successfully received, the Single UI will close the WebSocket connection to complete the process.
+
+Implementation Details:
+
+1. When a conversation ends, an event type "closed session" will be sent via WebSocket to the bridge.
+
+
+2. The bridge will call the Genesys Disconnect API to close the session from the Genesys server.
+
+
+3. Once the Disconnect API response is received, the Single UI will be notified.
+
+
+4. The Single UI will then close the WebSocket connection upon successful confirmation.
+
+
+
+Acceptance Criteria:
+✅ The Disconnect API should be called when a conversation chat is closed.
+✅ A "closed session" event should be sent via WebSocket to trigger the API call.
+✅ The bridge should handle the API request and response properly.
+✅ The Single UI should close the WebSocket connection after receiving a successful response.
+✅ The solution should be tested to ensure smooth session closure.
+
+Let me know if you need any refinements! 🚀
+
 
