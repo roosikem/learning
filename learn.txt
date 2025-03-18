@@ -1647,3 +1647,36 @@ This issue is more likely to occur in a production-like environment, where user 
 
 You can also replicate the same issue in the test environment by simulating the same scenario.
 
+Jira Ticket Description
+
+Title: Notify Agent When Conversation Chat is Closed
+
+Description:
+Currently, agents are not notified when a conversation chat is closed. This results in uncertainty and delays in response time. We need to implement a real-time notification mechanism to inform agents when a conversation chat ends.
+
+Expected Behavior:
+
+When a conversation chat is closed, the agent should receive an instant notification.
+
+The notification should include session details such as conversation ID, timestamp, and closure reason (if applicable).
+
+The notification should be displayed within the agent's UI for better visibility.
+
+
+Acceptance Criteria:
+
+1. Agents should receive a real-time notification when a conversation chat is closed.
+
+
+2. The notification should contain all relevant session details.
+
+
+3. The implementation should be seamless and not disrupt the agent’s workflow.
+
+
+4. The solution should be tested in a controlled environment before deployment.
+
+
+
+Let me know if you need any modifications! 🚀
+
