@@ -1710,6 +1710,25 @@ Acceptance Criteria:
 ✅ The Single UI should close the WebSocket connection after receiving a successful response.
 ✅ The solution should be tested to ensure smooth session closure.
 
+## 🚀 Updates in Version v2.0.0
+
+### 🗑️ Removed Legacy Schema for Callout Button & Quick Reply
+
+- The previous implementation handled different JSON response formats for **Callout Buttons** and **Quick Replies**.
+- These legacy schema formats have now been deprecated in earlier versions and are **completely removed** in this version of the plug-in.
+- This change helps streamline the message structure and ensures consistency with the backend's unified response format.
+
+---
+
+### ✨ Added `ConversationResponse` Model Support
+
+- Introduced a new model named **`ConversationResponse`** to handle response payloads explicitly.
+- Previously, **`ConversationRequest`** was being used for both request and response payloads, which led to confusion and limited validation.
+- With this update:
+  - `ConversationRequest` is now used **only for sending requests**.
+  - `ConversationResponse` is used **exclusively for receiving responses**.
+- This enhances code clarity, improves structure validation, and prepares the system for future extensibility.
+
 Let me know if you need any refinements! 🚀
 
 
