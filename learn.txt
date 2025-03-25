@@ -1817,3 +1817,36 @@ public class ChatbotClient {
         con.disconnect();
     }
 }
+
+Sure! Here's a **Jira ticket** breakdown with a clear title, description, and acceptance criteria:
+
+---
+
+### **Title:**  
+Handle and Suppress `InterruptedException` Logs During Session Shutdown
+
+---
+
+### **Description:**  
+The `InterruptedException` frequently appears in the logs during session shutdown when the Genesis server triggers the `onCommandStop()` method in the plugin. This method closes conversation-related resources and stops the corresponding thread, which results in an `InterruptedException`.
+
+Since this is **expected behavior** and part of the normal shutdown process, printing the full stack trace is unnecessary and leads to noise in the logs.  
+
+This task involves updating the exception handling to:
+- **Suppress full stack traces** for `InterruptedException`
+- **Log a concise, meaningful message** indicating that this interruption is expected during session shutdown
+
+---
+
+### **Acceptance Criteria:**
+
+1. ✅ `InterruptedException` is caught and **not printed with a full stack trace**  
+2. ✅ A **clear message** is logged instead, e.g.:  
+   `"Thread interrupted during session shutdown. This is expected and handled gracefully."`
+3. ✅ No other exceptions or shutdown-related logic are affected
+4. ✅ Verified that the plugin still closes resources correctly after session termination
+5. ✅ Logging follows the existing logging structure or standards used in the project
+
+---
+
+Let me know if you'd like me to also add a **labels**, **priority**, or **components** section for the Jira ticket.
