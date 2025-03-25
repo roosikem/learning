@@ -1736,3 +1736,84 @@ Previously, after closing the session from a single UI, the session remained act
 With the implementation of the disconnect API in the bridge layer, the session is now properly and completely terminated on the Genesys server whenever a single UI triggers the session closure using the endSession event. This ensures proper cleanup and prevents unintended session access from other clients.
 Additionally, since the agent workspace setup is not available in the current environment, we are unable to test the agent-side notification. However, the disconnect implementation ensures that the agent will be notified when the conversation is closed.
 
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.*;
+
+import org.json.JSONObject;
+
+public class ChatbotClient {
+
+    public static void main(String[] args) throws Exception {
+        // Step 1: Initiate conversation
+        String chatbotUrl = "http://yourdomain.com/chatbot";
+        JSONObject response = initiateChat(chatbotUrl);
+        String chatId = response.getString("chatId");
+        String secureKey = response.getString("secureKey"); // if needed
+
+        // Step 2: Prepare your messages
+        List<String> messages = Arrays.asList("Hi", "How are you?", "Tell me a joke");
+
+        // Step 3: Send each message
+        for (String msg : messages) {
+            sendMessage(chatId, msg);
+        }
+
+        // Step 4: Disconnect
+        disconnectChat(chatId);
+    }
+
+    private static JSONObject initiateChat(String urlStr) throws Exception {
+        URL url = new URL(urlStr);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("POST");
+        con.setDoOutput(true);
+
+        // Optional: write request body if needed
+        con.setRequestProperty("Content-Type", "application/json");
+
+        int status = con.getResponseCode();
+        InputStream inputStream = (status < HttpURLConnection.HTTP_BAD_REQUEST) ? 
+                                  con.getInputStream() : con.getErrorStream();
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
+        String inputLine;
+        StringBuilder responseContent = new StringBuilder();
+        while ((inputLine = in.readLine()) != null) {
+            responseContent.append(inputLine);
+        }
+        in.close();
+        con.disconnect();
+
+        return new JSONObject(responseContent.toString());
+    }
+
+    private static void sendMessage(String chatId, String message) throws Exception {
+        URL url = new URL("http://yourdomain.com/chatbot/" + chatId + "/message");
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("POST");
+        con.setDoOutput(true);
+        con.setRequestProperty("Content-Type", "application/json");
+
+        String jsonInputString = "{\"message\": \"" + message + "\"}";
+        try (OutputStream os = con.getOutputStream()) {
+            byte[] input = jsonInputString.getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        con.getResponseCode(); // Optional: validate response
+        con.disconnect();
+    }
+
+    private static void disconnectChat(String chatId) throws Exception {
+        URL url = new URL("http://yourdomain.com/chatbot/" + chatId + "/disconnect");
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        con.setRequestMethod("POST");
+        con.setDoOutput(true);
+        con.setRequestProperty("Content-Type", "application/json");
+
+        con.getResponseCode(); // Optional: validate response
+        con.disconnect();
+    }
+}
