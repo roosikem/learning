@@ -1732,3 +1732,7 @@ Acceptance Criteria:
 Let me know if you need any refinements! 🚀
 
 
+Previously, after closing the session from a single UI, the session remained active on the Genesys server and could still be accessed via other client tools. This behavior has now been addressed.
+With the implementation of the disconnect API in the bridge layer, the session is now properly and completely terminated on the Genesys server whenever a single UI triggers the session closure using the endSession event. This ensures proper cleanup and prevents unintended session access from other clients.
+Additionally, since the agent workspace setup is not available in the current environment, we are unable to test the agent-side notification. However, the disconnect implementation ensures that the agent will be notified when the conversation is closed.
+
