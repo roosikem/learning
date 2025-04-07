@@ -1850,3 +1850,45 @@ This task involves updating the exception handling to:
 ---
 
 Let me know if you'd like me to also add a **labels**, **priority**, or **components** section for the Jira ticket.
+
+Subject: Achievement Update – AWS AI Practitioner Certification
+
+Dear [Line Manager’s Name],
+
+I’m pleased to share that I have successfully earned the AWS Certified AI Practitioner (AIF-C01) certification. This achievement reflects my strong foundational knowledge of Artificial Intelligence (AI) and Machine Learning (ML) concepts, with a focus on real-world business applications.
+
+The certification emphasizes:
+	•	Core AI/ML principles – including supervised/unsupervised learning, deep learning, and NLP
+	•	Responsible AI – covering fairness, bias mitigation, and ethical practices
+	•	Use-case-based problem-solving – understanding how to apply AI/ML models effectively
+	•	Solution evaluation – selecting appropriate approaches based on business goals
+
+While the exam includes AWS-related examples, it is primarily centered on conceptual understanding of AI/ML, rather than platform-specific services.
+
+As someone who consistently embraces cutting-edge technologies, this milestone represents my dedication to staying future-ready and building expertise that aligns with emerging trends in AI and automation.
+
+Thanks for your ongoing support and encouragement. I look forward to leveraging this knowledge in future initiatives and delivering greater value to our work.
+
+Best regards,
+[Your Name]
+
+Subject: Achievement Update – AWS AI Practitioner Certification
+
+Dear [Line Manager’s Name],
+
+I’m pleased to share that I have successfully earned the AWS Certified AI Practitioner (AIF-C01) certification. This achievement reflects my strong foundational knowledge of Artificial Intelligence (AI) and Machine Learning (ML) concepts, with a focus on real-world business applications.
+
+The certification emphasizes:
+	•	Core AI/ML principles – including supervised/unsupervised learning, deep learning, and NLP
+	•	Responsible AI – covering fairness, bias mitigation, and ethical practices
+	•	Use-case-based problem-solving – understanding how to apply AI/ML models effectively
+	•	Solution evaluation – selecting appropriate approaches based on business goals
+
+While the exam references AWS services, it is primarily focused on AI/ML fundamentals and their responsible, practical application—making it relevant beyond any single platform.
+
+This milestone reflects my dedication to staying future-ready and building expertise aligned with emerging trends in AI and automation.
+
+Thank you for your continued support and encouragement. I look forward to applying this knowledge in our current and upcoming AI-driven initiatives.
+
+Best regards,
+[Your Name]
