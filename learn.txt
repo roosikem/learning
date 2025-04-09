@@ -1921,3 +1921,30 @@ Best regards,
 
 Let me know if you’d like it to be more concise or tailored for a specific team.
 
+
+
+
+Certainly! Here’s a revised version of your email, clarifying that the plug-in supports Java 11 without claiming full confirmation:
+
+
+---
+
+Subject: Java 11 Support for Plug-in v3.0.0
+
+Dear [Recipient's Name],
+
+This is to inform you that Plug-in version 3.0.0 is built with Java 11 support.
+
+As per the DMS version you provided, it also supports Java 11, so the plug-in should work as expected in your setup. However, since we do not currently have this specific DMS/BGS version in our testing environment, we have not been able to validate it end-to-end.
+
+Please proceed with deployment and let us know in case you face any issues. We’ll be glad to assist further.
+
+Best regards,
+[Your Name]
+
+
+---
+
+Let me know if you’d like a shorter version or want to include attachment or release notes.
+
+
