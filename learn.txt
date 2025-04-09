@@ -2126,4 +2126,99 @@ Future enhancement: Add support for caching secrets to avoid repeated AWS calls.
 
 Let me know if you'd like subtasks created for service, controller, test coverage, and deployment config updates.
 
+Here’s a professional JIRA story description for adding AWS Secrets Manager support in a Spring Boot backend application:
+
+
+---
+
+Title: Integrate AWS Secrets Manager for Secure Storage of Bot Details in Spring Boot Backend
+
+
+---
+
+Description:
+
+As part of improving security and centralized secret management, we need to integrate AWS Secrets Manager into our Spring Boot backend application to support saving and retrieving bot-related configuration details such as tokens, secrets, and endpoint URLs.
+
+This feature will allow sensitive information to be securely stored in AWS Secrets Manager instead of application properties or databases.
+
+
+---
+
+Acceptance Criteria:
+
+1. Configuration Setup:
+
+AWS SDK v2 integrated with the project.
+
+Use application.properties to inject AWS region, access key, and secret key.
+
+Bean configuration for SecretsManagerClient to enable reuse across services.
+
+
+
+2. Secret Creation Support:
+
+Implement REST API endpoint: POST /api/bot-secret/create
+
+Accepts secretName and botSecret object as input.
+
+Creates a new secret in AWS Secrets Manager.
+
+Fails gracefully if secret already exists.
+
+
+
+3. Secret Update Support:
+
+Implement POST /api/bot-secret to save/update existing secret.
+
+If the secret exists, update its value. If not, create it.
+
+
+
+4. Secret Retrieval:
+
+Implement GET /api/bot-secret to retrieve secret by name.
+
+Parse JSON secret and return as POJO (BotSecret).
+
+
+
+5. Error Handling & Logging:
+
+Handle AWS exceptions (e.g. ResourceExistsException, network issues).
+
+Log failures with proper context (but avoid logging sensitive values).
+
+
+
+6. Testing:
+
+Unit tests for service layer with mock AWS SDK.
+
+Integration testing using local AWS credentials or mocks.
+
+
+
+
+
+---
+
+Notes:
+
+Ensure sensitive keys are not hardcoded or logged.
+
+Fallback to environment variables or EC2 IAM role for production deployment.
+
+Future enhancement: Add support for caching secrets to avoid repeated AWS calls.
+
+
+
+---
+
+Let me know if you'd like subtasks created for service, controller, test coverage, and deployment config updates.
+
+
+
 
