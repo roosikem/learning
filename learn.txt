@@ -1,3 +1,10 @@
+Could you please describe the issue you’re facing with the app? I’d like to understand the problem more clearly.
+
+If this is related to the plugin, kindly provide the exact scenario along with the relevant bot plugin logs. This will help us analyze and troubleshoot the issue more effectively.
+
+Looking forward to your response.
+
+
 I have completed the following implementations for the file upload functionality in the bridge:
 
 Added a check to determine if image upload is required, using data from the Secret Manager based on the provided appid.
