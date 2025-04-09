@@ -1948,3 +1948,87 @@ Best regards,
 Let me know if you’d like a shorter version or want to include attachment or release notes.
 
 
+Sure! Here's a Jira title and description written in a professional and structured manner:
+
+
+---
+
+Title:
+
+Add functionality to save AppID details in AWS Secrets Manager for Tobi Bridge integration
+
+
+---
+
+Description:
+
+This task implements the initial support for securely storing all AppID-related details in AWS Secrets Manager as part of the Tobi Bridge integration.
+
+Scope:
+
+Store basic input fields (e.g., AppID, secrets, endpoints) in AWS Secrets Manager.
+
+Ensure secure and encrypted storage using IAM role-based access.
+
+Design the structure in a way that allows future enhancements for storing additional fields.
+
+
+Future Improvements:
+
+Expand support to include dynamic fields or configurations per tenant/bot.
+
+Add support for automated rotation and versioning if required.
+
+Provide management APIs for read/update of secrets via admin interface.
+
+
+Note:
+The current focus is on setting up the basic functionality. Future enhancements will be taken up incrementally based on integration needs.
+
+
+---
+
+Let me know if you want a subtasks breakdown as well.
+
+Sure! Here's the updated Jira Title and Description with the mention of TCT-managed configuration:
+
+
+---
+
+Title:
+
+Add functionality to save AppID details in AWS Secrets Manager (Managed via TCT) for Tobi Bridge integration
+
+
+---
+
+Description:
+
+This enhancement provides support for saving and managing AppID configuration details for the Tobi Bridge in AWS Secrets Manager, with centralized management handled through TCT.
+
+Scope:
+
+Store essential AppID fields (e.g., AppID, secret, endpoint) securely in AWS Secrets Manager.
+
+Ensure the data is encrypted and accessible via appropriate IAM policies.
+
+Configuration will be managed centrally via TCT to maintain consistency and security.
+
+
+Future Enhancements:
+
+Extend to support advanced configuration parameters for multi-tenant or multi-bot scenarios.
+
+Introduce UI/API-level integration for secret lifecycle operations (read/update/delete).
+
+Optional support for secret rotation policies and audit logging.
+
+
+Note:
+This is the first phase focusing on the basic integration with AWS Secrets Manager. TCT will act as the management layer for these configurations moving forward.
+
+
+---
+
+Let me know if you’d like to include a checklist or impact note too.
+
