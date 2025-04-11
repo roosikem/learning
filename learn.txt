@@ -1,3 +1,11 @@
+Hi Team,
+
+I’ve implemented a similar concept and architecture in my personal AWS account, and the application is already live.
+The same application code is designed to be reusable and can be deployed on Lambda or any other server environment without modification.
+Please let me know if this could be helpful for our 3.0.0 project.
+
+
+
 I have received the logs and, after analysis, found that plugin version 2.9.3 is currently deployed, which was released last year.
 Additionally, I observed that for both URLs, the plugin is encountering ReadTimeout errors, indicating connectivity issues.
 
