@@ -1,3 +1,6 @@
+I have received the logs and, after analysis, found that plugin version 2.9.3 is currently deployed, which was released last year.
+Additionally, I observed that for both URLs, the plugin is encountering ReadTimeout errors, indicating connectivity issues.
+
 Could you please describe the issue you’re facing with the app? I’d like to understand the problem more clearly.
 
 If this is related to the plugin, kindly provide the exact scenario along with the relevant bot plugin logs. This will help us analyze and troubleshoot the issue more effectively.
